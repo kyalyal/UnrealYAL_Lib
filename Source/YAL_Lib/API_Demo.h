@@ -32,6 +32,16 @@ public:
 
 	// 지정된 URL로 HTTP 요청을 보낸다.
 	// InVerb는 Get,Post 등 요청 메서드이다.
+	UFUNCTION(BlueprintCallable)
 	void HttpCall(const FString& InURL, const FString& InVerb);
+
+
+	UFUNCTION(BlueprintPure)
+	const FString& GetAnswer() { return Answer; }
+
+
+private:
+	UPROPERTY()
+	FString Answer = "";
 
 };

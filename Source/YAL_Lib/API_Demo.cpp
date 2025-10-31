@@ -21,7 +21,7 @@ void AAPI_Demo::BeginPlay()
 	Super::BeginPlay();
 	
 	//테스트 코드
-	//HttpCall("https://naver.com", "GET");
+	//HttpCall("https://jsonplaceholder.typicode.com/posts/1", "GET");
 
 }
 
@@ -32,6 +32,7 @@ void AAPI_Demo::Tick(float DeltaTime)
 
 }
 
+//콜백 함수
 void AAPI_Demo::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
 	// 요청이 성공했는지, 응답이 유요한지 검사한다.
@@ -67,6 +68,10 @@ void AAPI_Demo::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Res
 	UE_LOG(LogTemp, Warning, TEXT("Response : %s"), *Response->GetContentAsString());
 	UE_LOG(LogTemp, Warning, TEXT("title : %s"), *RefObj->GetStringField("title"));
 	UE_LOG(LogTemp, Warning, TEXT("body : %s"), *RefObj->GetStringField("body"));
+
+	//String에 적용
+	Answer = *RefObj->GetStringField("title");
+
 }
 
 void AAPI_Demo::HttpCall(const FString& InURL, const FString& InVerb)
