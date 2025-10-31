@@ -36,6 +36,16 @@ void AAPI_Demo::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Res
 		UE_LOG(LogTemp, Error, TEXT("HTTP request failed. URL: %s"), *Request->GetURL());
 		return;
 	}
+
+	// 응답 상태 코드를 가져온다.
+	int32 StatusCode = Response->GetResponseCode();
+
+	// 응답 본문을 문자열로 가져옴
+	FString ResponseContent = Response->GetContentAsString();
+
+	// 요청이 완료되었음을 출력
+	UE_LOG(LogTemp, Warning, TEXT("HTTP request completed. Status Code: %d, URL: %s"), StatusCode, *Request->GetURL());
+	UE_LOG(LogTemp, Warning, TEXT("Response Content: %s"), *ResponseContent);
 }
 
 void AAPI_Demo::HttpCall(const FString& InURL, const FString& InVerb)
