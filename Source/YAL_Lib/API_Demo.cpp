@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ // Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "API_Demo.h"
@@ -19,6 +19,9 @@ void AAPI_Demo::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	//테스트 코드
+	//HttpCall("https://naver.com", "GET");
+
 }
 
 // Called every frame
