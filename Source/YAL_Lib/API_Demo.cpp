@@ -2,6 +2,7 @@
 
 
 #include "API_Demo.h"
+#include "Json.h"
 
 // Sets default values
 AAPI_Demo::AAPI_Demo()
@@ -49,6 +50,23 @@ void AAPI_Demo::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Res
 	// 요청이 완료되었음을 출력
 	UE_LOG(LogTemp, Warning, TEXT("HTTP request completed. Status Code: %d, URL: %s"), StatusCode, *Request->GetURL());
 	UE_LOG(LogTemp, Warning, TEXT("Response Content: %s"), *ResponseContent);
+
+
+	//파싱 부분
+
+	// Json 데이터를 저장할 객체
+	TSharedPtr<FJsonObject> RefObj;
+
+	// Json 데이터를 파싱하기 위한 리더 객체
+	TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(Response->GetContentAsString());
+
+	// Reader를 사용해 문자열을 파싱하고, 이를 FJsonObject로 변환한다.
+	FJsonSerializer::Deserialize(Reader, RefObj);
+
+	// 요청이 완료되었음을 출력
+	UE_LOG(LogTemp, Warning, TEXT("Response : %s"), *Response->GetContentAsString());
+	UE_LOG(LogTemp, Warning, TEXT("title : %s"), *RefObj->GetStringField("title"));
+	UE_LOG(LogTemp, Warning, TEXT("body : %s"), *RefObj->GetStringField("body"));
 }
 
 void AAPI_Demo::HttpCall(const FString& InURL, const FString& InVerb)
